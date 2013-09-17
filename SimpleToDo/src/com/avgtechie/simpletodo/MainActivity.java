@@ -41,6 +41,9 @@ public class MainActivity extends Activity {
 		});
 	}
 
+	/**
+	 * Initialize all required components from activity_main layoutfile.
+	 */
 	private void initComponents() {
 		lvToDo = (ListView) findViewById(R.id.lvToDoItems);
 		btnAddItem = (Button) findViewById(R.id.btnAddItem);
