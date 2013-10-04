@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Google Image Searcher</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="enter_image_search">Enter image search</string>
+    <string name="search">Search</string>
+
+    <string-array name="array_img_size">
+        <item>small</item>
+        <item>medium</item>
+        <item>large</item>
+        <item>extra large</item>
+    </string-array>
+    <string-array name="array_img_type">
+        <item>faces</item>
+        <item>photo</item>
+        <item>clip art</item>
+        <item>line art</item>
+    </string-array>
+    <string-array name="array_img_color">
+        <item>black</item>
+        <item>blue</item>
+        <item>browne</item>
+        <item>gray</item>
+    </string-array>
+        <string name="advanced_search_option">Advanced Search Option</string>
+        <string name="image_size">Image Size</string>
+        <string name="color_filter">Color Filter</string>
+        <string name="image_type">Image Type</string>
+        <string name="site_filter">Site Filter</string>
+        <string name="enter_site_to_search_from">Enter site to search from</string>
+        <string name="imageview">imageview</string>
+        <string name="no_image_found">Your search returns zero result.</string>
+        <string name="loadmore">Load More</string>
+        <string name="save">Save</string>
+
+</resources>
