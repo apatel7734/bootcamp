@@ -14,8 +14,20 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:hint="@string/enter_amount"
-        android:inputType="number"
-        android:paddingTop="1dp" />
+        android:inputType="numberDecimal"
+        android:paddingTop="1dp"
+        android:singleLine="true" />
+
+    <TextView
+        android:id="@+id/tvResultDisp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/etAmount"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:padding="5dp"
+        android:textSize="30sp" />
 
     <Button
         android:id="@+id/btnTenPerc"
@@ -24,7 +36,9 @@
         android:layout_alignTop="@+id/btnTwentyPerc"
         android:layout_toLeftOf="@id/btnTwentyPerc"
         android:onClick="calculateTip"
-        android:text="@string/_10_" />
+        android:padding="20dp"
+        android:text="@string/_10_"
+        android:textSize="30sp" />
 
     <Button
         android:id="@id/btnTwentyPerc"
@@ -33,7 +47,9 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:onClick="calculateTip"
-        android:text="@string/_20_" />
+        android:padding="20dp"
+        android:text="@string/_20_"
+        android:textSize="30sp" />
 
     <Button
         android:id="@+id/btnThirtyPerc"
@@ -42,14 +58,18 @@
         android:layout_alignTop="@id/btnTwentyPerc"
         android:layout_toRightOf="@id/btnTwentyPerc"
         android:onClick="calculateTip"
-        android:text="@string/_30_" />
+        android:padding="20dp"
+        android:text="@string/_30_"
+        android:textSize="30sp" />
 
-    <TextView
+    <!--
+         <TextView
         android:id="@+id/tvResultDisp"
         android:layout_width="match_parent"
         android:layout_height="30dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:gravity="center" />
+    -->
 
 </RelativeLayout>

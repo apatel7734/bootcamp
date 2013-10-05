@@ -8,10 +8,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
-	private final String TAG = "MainActivity.java";
+	private final String TAG = "MainActivity";
 
 	Button tenPercBtn = null;
 	Button twentyPercBtn = null;
@@ -38,20 +39,26 @@ public class MainActivity extends Activity {
 	public void calculateTip(View v) {
 		int id = v.getId();
 		double result = 0;
+		String amountStr = inputAmtEt.getText().toString();
+		if (amountStr.isEmpty()) {
+			Toast.makeText(this, "Enter number", Toast.LENGTH_SHORT).show();
+			return;
+		}
+		double amountDbl = Double.parseDouble(inputAmtEt.getText().toString());
 		switch (id) {
 		case R.id.btnTenPerc:
 			Log.d(TAG, "Ten % clicked");
-			result = calculatePercentage(Integer.parseInt(inputAmtEt.getText().toString()), 10);
+			result = calculatePercentage(amountDbl, 10);
 			Log.d(TAG, "Result = " + result);
 			break;
 		case R.id.btnTwentyPerc:
 			Log.d(TAG, "Twenty % clicked");
-			result = calculatePercentage(Integer.parseInt(inputAmtEt.getText().toString()), 20);
+			result = calculatePercentage(amountDbl, 20);
 			Log.d(TAG, "Result = " + result);
 			break;
 		case R.id.btnThirtyPerc:
 			Log.d(TAG, "Thirty % clicked");
-			result = calculatePercentage(Integer.parseInt(inputAmtEt.getText().toString()), 30);
+			result = calculatePercentage(amountDbl, 30);
 			Log.d(TAG, "Result = " + result);
 			break;
 		default:
@@ -61,7 +68,7 @@ public class MainActivity extends Activity {
 		resultTv.setText("Tip is :   $" + result);
 	}
 
-	private Double calculatePercentage(int amount, int perc) {
+	private Double calculatePercentage(double amount, int perc) {
 		double result = (amount * perc) / 100;
 		return result;
 	}
