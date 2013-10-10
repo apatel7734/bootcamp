@@ -1,0 +1,28 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <ImageView
+        android:id="@+id/img_tweeter_profile"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginRight="5dp"
+        android:background="@android:color/black"
+        android:contentDescription="@string/tweetter_profile_image" />
+
+    <TextView
+        android:id="@+id/tv_tweeter_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/img_tweeter_profile"
+        android:layout_toRightOf="@id/img_tweeter_profile" />
+
+    <TextView
+        android:id="@+id/tv_tweet_body"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_tweeter_name"
+        android:layout_toRightOf="@id/img_tweeter_profile" />
+
+</RelativeLayout>
