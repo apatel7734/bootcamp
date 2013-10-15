@@ -3,19 +3,21 @@ package com.avgtechie.googleimagesearcher.activities;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnKeyListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
@@ -34,6 +36,7 @@ public class ImageSearchMainActivity extends Activity {
 	private final String TAG = "ImageSearchActivity";
 	Button btnImgSearch;
 	EditText etImgSearch;
+	Button btnLoadMore;
 	GridView grdView;
 	CustomGridViewAdapter grdViewAdapter;
 	Context context = this;
@@ -42,68 +45,95 @@ public class ImageSearchMainActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
 
+		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_imagesearch);
-		etImgSearch = (EditText) findViewById(R.id.et_img_search);
-		grdView = (GridView) findViewById(R.id.gv_display_search_imgs);
+
+		initViews();
+		btnLoadMore.setVisibility(View.INVISIBLE);
+
 		ActionBar actionBar = getActionBar();
-		resInfoList = new ArrayList<ResponseInformation>();
-		Log.d(TAG, resInfoList.toString());
-		Log.d(TAG, "***********************");
-		grdViewAdapter = new CustomGridViewAdapter(this, resInfoList);
-		grdView.setAdapter(grdViewAdapter);
 		actionBar.show();
 
+		resInfoList = new ArrayList<ResponseInformation>();
+		grdViewAdapter = new CustomGridViewAdapter(this, resInfoList);
+		grdView.setAdapter(grdViewAdapter);
+		SearchUrlGenerator.createAdvSearchOptDefSharedPrefs(getSharedPreferences(Constants.SETTING_PREF, 0));
+		grdView.setOnItemClickListener(grvViewItemClickListener);
+		disableSearchButton();
+		etImgSearch.setOnKeyListener(new OnKeyListener() {
+			@Override
+			public boolean onKey(View v, int keyCode, KeyEvent event) {
+				if (etImgSearch.getText().length() > 2) {
+					enableSearchButton();
+				} else {
+					disableSearchButton();
+				}
+				return false;
+			}
+
+		});
+	}
+
+	private void disableSearchButton() {
+		btnImgSearch.setClickable(false);
+		btnImgSearch.setTextColor(Color.GRAY);
+	}
+
+	private void enableSearchButton() {
+		btnImgSearch.setClickable(true);
+		btnImgSearch.setTextColor(Color.BLACK);
+	}
+
+	private void initViews() {
+		etImgSearch = (EditText) findViewById(R.id.et_img_search);
+		btnImgSearch = (Button) findViewById(R.id.btn_img_search);
+		grdView = (GridView) findViewById(R.id.gv_display_search_imgs);
+		btnLoadMore = (Button) findViewById(R.id.btn_img_loadmore);
 	}
 
 	public void onSearchBtnClicked(View v) {
 		startPage = 1;
 		resInfoList.clear();
 		grdViewAdapter.clear();
-		ImageLoader();
+		AsyncImageLoader();
 	}
 
 	public void onLoadMoreBtnClicked(View v) {
-		ImageLoader();
+		AsyncImageLoader();
 	}
 
-	public void ImageLoader() {
+	public void AsyncImageLoader() {
 		String url = SearchUrlGenerator.getSearchURL(getSharedPreferences(Constants.SETTING_PREF, 0), etImgSearch.getText().toString(),
 				startPage.toString());
 		AsyncHttpClient client = new AsyncHttpClient();
-		Log.d(TAG, "******* URL ****** :" + url);
 		client.get(url, new JsonHttpResponseHandler() {
 			@Override
-			public void onSuccess(int arg0, JSONObject response) {
-				JSONArray resultsArray = null;
-				try {
-					JSONObject responseData = response.getJSONObject("responseData");
-					if (responseData != null) {
-						resultsArray = responseData.getJSONArray("results");
-						if (resultsArray.length() > 0) {
-							for (int i = 0; i < resultsArray.length(); i++) {
-								JSONObject resultObj = resultsArray.getJSONObject(i);
-								ResponseInformation resInfo = new ResponseInformation(resultObj);
-								resInfoList.add(resInfo);
-							}
-							Log.d(TAG, "resInfoList" + resInfoList);
-							Log.d(TAG, "resInfoList size" + resInfoList.size());
-							grdViewAdapter.notifyDataSetChanged();
-							// grdViewAdapter.addAll(resInfoList);
-						} else {
-							Toast.makeText(context, "Your Search returned no result!", Toast.LENGTH_SHORT).show();
-						}
-					} else {
-						Toast.makeText(context, response.getString("responseDetails"), Toast.LENGTH_SHORT).show();
-					}
-				} catch (JSONException e) {
-					Log.d(TAG, "Error in getting json data" + e);
+			public void onSuccess(JSONObject response) {
+
+				ResponseInformation resInfo = new ResponseInformation();
+				resInfoList.addAll(resInfo.fromJSONArrayToResInfo(response));
+				if (resInfoList.size() < 1) {
+					Toast.makeText(context, R.string.no_image_found, Toast.LENGTH_SHORT).show();
+					btnLoadMore.setVisibility(View.INVISIBLE);
+				} else {
+					grdViewAdapter.notifyDataSetChanged();
+					btnLoadMore.setVisibility(View.VISIBLE);
 				}
+
 			}
 		});
 		startPage = startPage + 1;
 	}
+
+	OnItemClickListener grvViewItemClickListener = new OnItemClickListener() {
+		@Override
+		public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+			Intent intent = new Intent(getBaseContext(), ImageViewActivity.class);
+			intent.putExtra(Constants.IMAGE_URL, view.getTag().toString());
+			startActivity(intent);
+		}
+	};
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -115,7 +145,7 @@ public class ImageSearchMainActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		Intent intent = new Intent(this, AdvancedSearchOptionActivity.class);
 		startActivity(intent);
-		return super.onOptionsItemSelected(item);
+		return true;
 	}
 
 }

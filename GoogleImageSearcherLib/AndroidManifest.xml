@@ -28,6 +28,10 @@
             android:name="com.avgtechie.googleimagesearcher.activities.AdvancedSearchOptionActivity"
             android:label="@string/app_name" >
         </activity>
+        <activity
+            android:name="com.avgtechie.googleimagesearcher.activities.ImageViewActivity"
+            android:label="@string/title_activity_image_view" >
+        </activity>
     </application>
 
 </manifest>

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Google Image Searcher</string>
+    <string name="app_name">Google Image Search</string>
     <string name="action_settings">Settings</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="enter_image_search">Enter image search</string>
+    <string name="show_image">show image</string>
+    <string name="enter_image_search">Type word</string>
     <string name="search">Search</string>
 
     <string-array name="array_img_size">
@@ -25,15 +25,21 @@
         <item>browne</item>
         <item>gray</item>
     </string-array>
-        <string name="advanced_search_option">Advanced Search Option</string>
-        <string name="image_size">Image Size</string>
-        <string name="color_filter">Color Filter</string>
-        <string name="image_type">Image Type</string>
-        <string name="site_filter">Site Filter</string>
-        <string name="enter_site_to_search_from">Enter site to search from</string>
-        <string name="imageview">imageview</string>
-        <string name="no_image_found">Your search returns zero result.</string>
-        <string name="loadmore">Load More</string>
-        <string name="save">Save</string>
+
+    <string name="advanced_search_option">Advanced Search Option</string>
+    <string name="image_size">Image Size</string>
+    <string name="color_filter">Color Filter</string>
+    <string name="image_type">Image Type</string>
+    <string name="site_filter">Site Filter</string>
+    <string name="enter_site_to_search_from">Enter site to search from</string>
+    <string name="imageview">imageview</string>
+    <string name="no_image_found">Your search returns zero result.</string>
+    <string name="loadmore">Load More</string>
+    <string name="save">Save</string>
+    <string name="your_search_returned_no_result_">Your Search returned no result!</string>
+    <string name="title_activity_image_view">ImageViewActivity</string>
+    <string name="cancel">Cancel</string>
+    <string name="cancelled">Cancelled</string>
+    <string name="saved">Saved</string>
 
 </resources>

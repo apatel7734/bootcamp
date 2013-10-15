@@ -47,6 +47,7 @@ public class CustomGridViewAdapter extends ArrayAdapter<ResponseInformation> {
 		String url = resInfo.getThumbUrl();
 		smartImgView.setImageUrl(url);
 		txtView.setText(title);
+		rowView.setTag(resInfo.getFullUrl());
 
 		return rowView;
 	}

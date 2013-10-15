@@ -4,15 +4,14 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 
 import com.avgtechie.googleimagesearcher.constant.Constants;
 
 public class SearchUrlGenerator {
 
-	private final String protocol = "https://";
-	private final String endpoint = "ajax.googleapis.com";
-	private final String path = "/ajax/services/search/images";
-	private final String version = "?v=1.0";
+	private final String URL = "https://ajax.googleapis.com/ajax/services/search/images?v=1.0";
+
 	private final String imgcolor = "&imgcolor=";
 	private final String imgsz = "&imgsz=";
 	private final String imgtype = "&imgtype=";
@@ -58,10 +57,8 @@ public class SearchUrlGenerator {
 			queryVal = URLEncoder.encode(queryVal, "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 		}
-		builder.append(protocol);
-		builder.append(endpoint);
-		builder.append(path);
-		builder.append(version);
+
+		builder.append(URL);
 
 		builder.append(imgcolor);
 		builder.append(imgcolorVal);
@@ -79,6 +76,26 @@ public class SearchUrlGenerator {
 		builder.append(queryVal);
 
 		return builder.toString();
+	}
+
+	/**
+	 * This method sets the default values for the parameter if activity is
+	 * launched first time.
+	 * 
+	 * @param pref
+	 *            - setting_pref
+	 */
+	public static void createAdvSearchOptDefSharedPrefs(SharedPreferences pref) {
+		int firstTimeLaunched = pref.getInt(Constants.FIRST_TIME_LAUNCHED, -1);
+		if (firstTimeLaunched == -1) {
+			Editor edits = pref.edit();
+			edits.putInt(Constants.FIRST_TIME_LAUNCHED, 1);
+			edits.putString(Constants.PREF_IMG_COLOR_KEY, "blue");
+			edits.putString(Constants.PREF_IMG_SIZE_KEY, "small");
+			edits.putString(Constants.PREF_IMG_TYPE_KEY, "photo");
+			edits.putString(Constants.PREF_IMG_SITE_FILTER_KEY, "google.com");
+			edits.commit();
+		}
 
 	}
 }

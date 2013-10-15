@@ -9,8 +9,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/btn_img_search"
+        android:layout_alignTop="@id/btn_img_search"
         android:layout_toLeftOf="@id/btn_img_search"
-        android:hint="@string/enter_image_search" />
+        android:background="#2d2d2d"
+        android:hint="@string/enter_image_search"
+        android:textColor="#FFFFFF" />
 
     <Button
         android:id="@id/btn_img_search"
@@ -18,23 +21,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:onClick="onSearchBtnClicked"
-        android:text="@string/search" />
-
-    <!--
-    <GridView
-        android:id="@+id/gv_display_search_imgs"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/btn_img_loadmore"
-        android:layout_below="@id/btn_img_search"
-        android:columnWidth="90dp"
-        android:gravity="center"
-        android:horizontalSpacing="10dp"
-        android:numColumns="auto_fit"
-        android:stretchMode="columnWidth"
-        android:verticalSpacing="10dp" >
-    </GridView>
-    -->
+        android:text="@string/search"
+        style="@style/buttons"/>
 
     <GridView
         android:id="@+id/gv_display_search_imgs"
@@ -47,6 +35,7 @@
 
     <Button
         android:id="@+id/btn_img_loadmore"
+        style="?android:attr/buttonBarButtonStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
