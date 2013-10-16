@@ -31,7 +31,7 @@ public class LoginActivity extends OAuthLoginActivity<TweeterRestClient> {
 	// i.e Display application "homepage"
 	@Override
 	public void onLoginSuccess() {
-		Intent i = new Intent(this, TimeLineActivity.class);
+		Intent i = new Intent(this, TimeLineMainActivity.class);
 		startActivity(i);
 	}
 

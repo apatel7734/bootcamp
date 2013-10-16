@@ -43,11 +43,7 @@ public class TweeterRestClient extends OAuthBaseClient {
 	 * Chage this from application from developers document from provider
 	 */
 	public static final String REST_CALLBACK_URL = "oauth://ashishtweeterclient";
-	// this
-	// (here
-	// and
-	// in
-	// manifest)
+
 	private static final String TAG = "RestClient";
 
 	public TweeterRestClient(Context context) {
@@ -56,7 +52,6 @@ public class TweeterRestClient extends OAuthBaseClient {
 
 	public void getHomeTimeline(AsyncHttpResponseHandler handler, int page) {
 		String url = getApiUrl("statuses/home_timeline.json?page=" + page);
-		Log.d(TAG, url);
 		client.get(url, null, handler);
 	}
 
@@ -66,23 +61,4 @@ public class TweeterRestClient extends OAuthBaseClient {
 		params.put("status", "testTweet");
 		client.post(apiUrl, params, handler);
 	}
-
-	// CHANGE THIS
-	// DEFINE METHODS for different API endpoints here
-	public void getInterestingnessList(AsyncHttpResponseHandler handler) {
-		String apiUrl = getApiUrl("?nojsoncallback=1&method=flickr.interestingness.getList");
-		// Can specify query string params directly or through RequestParams.
-		RequestParams params = new RequestParams();
-		params.put("format", "json");
-		client.get(apiUrl, params, handler);
-	}
-
-	/*
-	 * 1. Define the endpoint URL with getApiUrl and pass a relative path to the
-	 * endpoint i.e getApiUrl("statuses/home_timeline.json"); 2. Define the
-	 * parameters to pass to the request (query or body) i.e RequestParams
-	 * params = new RequestParams("foo", "bar"); 3. Define the request method
-	 * and make a call to the client i.e client.get(apiUrl, params, handler);
-	 * i.e client.post(apiUrl, params, handler);
-	 */
 }

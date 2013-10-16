@@ -8,9 +8,8 @@
         android:title="@string/refresh"/>
     <item
         android:id="@+id/item_compose"
-        android:icon="@drawable/ic_action_new"
+        android:icon="@drawable/tweet_compose_white"
         android:orderInCategory="100"
         android:showAsAction="ifRoom"
         android:title="@string/compose"/>
-
 </menu>

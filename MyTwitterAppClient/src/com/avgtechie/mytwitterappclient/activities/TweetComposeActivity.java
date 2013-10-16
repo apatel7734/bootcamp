@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.avgtechie.mytwitterappclient.R;
@@ -22,18 +23,24 @@ public class TweetComposeActivity extends Activity {
 	Button btnCancel;
 	Button btnTweet;
 	EditText etTweetCompose;
+	TextView tvUserName;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_tweet_compose);
 		initViews();
+		// TODO Add username here.
+		tvUserName.setText("@Username");
+		
+
 	}
 
 	private void initViews() {
 		btnCancel = (Button) findViewById(R.id.btn_tweet_cancel);
 		btnTweet = (Button) findViewById(R.id.btn_tweet_compose);
 		etTweetCompose = (EditText) findViewById(R.id.et_tweet_compose);
+		tvUserName = (TextView) findViewById(R.id.tv_tweet_username);
 	}
 
 	public void onClickBtnTweet(View v) {
@@ -50,6 +57,7 @@ public class TweetComposeActivity extends Activity {
 		}
 
 		// tweetStatus();
+		finish();
 	}
 
 	public void tweetStatus() {
@@ -67,7 +75,7 @@ public class TweetComposeActivity extends Activity {
 	}
 
 	public void onClickBtnCancel(View v) {
-		Toast.makeText(this, "onClickBtnCancel", Toast.LENGTH_SHORT).show();
+		finish();
 	}
 
 }

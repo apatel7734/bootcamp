@@ -7,6 +7,7 @@ import org.json.JSONArray;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
@@ -19,7 +20,7 @@ import com.avgtechie.mytwitterappclient.models.Tweet;
 import com.avgtechie.mytwitterappclient.restclients.RestClientApp;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
-public class TimeLineActivity extends Activity {
+public class TimeLineMainActivity extends Activity {
 
 	protected static final String TAG = "TimeLineActivity";
 	List<Tweet> tweets;
@@ -37,14 +38,17 @@ public class TimeLineActivity extends Activity {
 			public void loadMore(int page) {
 				loadMoreTweets(page);
 			}
-
 		});
+		//TODO Add username here 
+		getActionBar().setTitle("@Username");
+
 	}
 
 	public void loadTweets() {
 		RestClientApp.getRestClient().getHomeTimeline(new JsonHttpResponseHandler() {
 			@Override
 			public void onSuccess(JSONArray jsonArray) {
+				Log.d(TAG, jsonArray.toString());
 				tweets = Tweet.fromJson(jsonArray);
 				adapter = new TweetsAdapter(getBaseContext(), tweets);
 				lvTweets.setAdapter(adapter);
