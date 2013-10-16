@@ -11,6 +11,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -61,19 +63,41 @@ public class ImageSearchMainActivity extends Activity {
 		SearchUrlGenerator.createAdvSearchOptDefSharedPrefs(getSharedPreferences(Constants.SETTING_PREF, 0));
 		grdView.setOnItemClickListener(grvViewItemClickListener);
 		disableSearchButton();
-		etImgSearch.setOnKeyListener(new OnKeyListener() {
-			@Override
-			public boolean onKey(View v, int keyCode, KeyEvent event) {
-				if (etImgSearch.getText().length() > 2) {
+
+		//etImgSearch.setOnKeyListener(keyListener);
+
+		etImgSearch.addTextChangedListener(new TextWatcher() {
+			public void afterTextChanged(Editable s) {
+				if (s.length() > 2)
 					enableSearchButton();
-				} else {
+				else
 					disableSearchButton();
-				}
-				return false;
 			}
 
+			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+				// TODO Auto-generated method stub
+			}
+
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
+				// TODO Auto-generated method stub
+			}
 		});
+
 	}
+
+	private OnKeyListener keyListener = new EditText.OnKeyListener() {
+
+		@Override
+		public boolean onKey(View v, int keyCode, KeyEvent event) {
+			if (etImgSearch.getText().length() > 2) {
+				enableSearchButton();
+			} else {
+				disableSearchButton();
+			}
+			return false;
+		}
+
+	};
 
 	private void disableSearchButton() {
 		btnImgSearch.setClickable(false);
