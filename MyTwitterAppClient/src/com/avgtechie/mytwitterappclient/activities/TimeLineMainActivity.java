@@ -3,10 +3,13 @@ package com.avgtechie.mytwitterappclient.activities;
 import java.util.List;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,7 +19,10 @@ import android.widget.Toast;
 import com.avgtechie.mytwitterappclient.R;
 import com.avgtechie.mytwitterappclient.adapters.TweetsAdapter;
 import com.avgtechie.mytwitterappclient.listeners.EndlessScrollListener;
+import com.avgtechie.mytwitterappclient.models.Helper;
 import com.avgtechie.mytwitterappclient.models.Tweet;
+import com.avgtechie.mytwitterappclient.models.UserCredential;
+import com.avgtechie.mytwitterappclient.models.UserSetting;
 import com.avgtechie.mytwitterappclient.restclients.RestClientApp;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
@@ -32,6 +38,7 @@ public class TimeLineMainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_time_line);
 		lvTweets = (ListView) findViewById(R.id.lv_tweets);
+		getUserInformation();
 		loadTweets();
 		lvTweets.setOnScrollListener(new EndlessScrollListener() {
 			@Override
@@ -39,16 +46,38 @@ public class TimeLineMainActivity extends Activity {
 				loadMoreTweets(page);
 			}
 		});
-		//TODO Add username here 
-		getActionBar().setTitle("@Username");
 
+	}
+
+	public void getUserInformation() {
+		RestClientApp.getRestClient().verifyCredential(new JsonHttpResponseHandler() {
+			@Override
+			public void onSuccess(JSONObject response) {
+				UserCredential userCred = UserCredential.fromJson(response);
+				SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+				Helper.addUserInfoSharedPref(prefs, userCred);
+				getActionBar().setTitle(Helper.getSharedPrefUserScreenName(prefs));
+			}
+		});
+	}
+
+	public void getSettings() {
+		RestClientApp.getRestClient().getUserSettings(new JsonHttpResponseHandler() {
+
+			@Override
+			public void onSuccess(JSONObject response) {
+				UserSetting userSet = new UserSetting(response);
+				String username = userSet.getUserScreenName();
+				getActionBar().setTitle("@" + username);
+				Log.d(TAG, response.toString());
+			}
+		});
 	}
 
 	public void loadTweets() {
 		RestClientApp.getRestClient().getHomeTimeline(new JsonHttpResponseHandler() {
 			@Override
 			public void onSuccess(JSONArray jsonArray) {
-				Log.d(TAG, jsonArray.toString());
 				tweets = Tweet.fromJson(jsonArray);
 				adapter = new TweetsAdapter(getBaseContext(), tweets);
 				lvTweets.setAdapter(adapter);
@@ -80,7 +109,6 @@ public class TimeLineMainActivity extends Activity {
 			break;
 
 		case R.id.item_compose:
-			// Toast.makeText(this, "Item Compose", Toast.LENGTH_SHORT).show();
 			Intent intent = new Intent(this, TweetComposeActivity.class);
 			startActivity(intent);
 			break;

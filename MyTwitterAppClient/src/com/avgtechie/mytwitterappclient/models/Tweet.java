@@ -7,6 +7,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Tweet extends BaseModel {
+	private static final String TAG = "Tweet";
+	
 	private User user;
 
 	public User getUser() {
@@ -43,7 +45,6 @@ public class Tweet extends BaseModel {
 
 	public static ArrayList<Tweet> fromJson(JSONArray jsonArray) {
 		ArrayList<Tweet> tweets = new ArrayList<Tweet>(jsonArray.length());
-
 		for (int i = 0; i < jsonArray.length(); i++) {
 			JSONObject tweetJson = null;
 			try {
@@ -58,7 +59,6 @@ public class Tweet extends BaseModel {
 				tweets.add(tweet);
 			}
 		}
-
 		return tweets;
 	}
 }

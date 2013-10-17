@@ -4,7 +4,6 @@ import org.scribe.builder.api.Api;
 import org.scribe.builder.api.TwitterApi;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.codepath.oauth.OAuthBaseClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -61,4 +60,15 @@ public class TweeterRestClient extends OAuthBaseClient {
 		params.put("status", "testTweet");
 		client.post(apiUrl, params, handler);
 	}
+
+	public void getUserSettings(AsyncHttpResponseHandler handler) {
+		String apiurl = getApiUrl("account/settings.json");
+		client.get(apiurl, handler);
+	}
+
+	public void verifyCredential(AsyncHttpResponseHandler handler) {
+		String apiurl = getApiUrl("account/verify_credentials.json");
+		client.get(apiurl, handler);
+	}
+
 }

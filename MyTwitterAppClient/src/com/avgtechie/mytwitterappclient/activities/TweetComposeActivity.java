@@ -6,17 +6,22 @@ import java.net.URLEncoder;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.avgtechie.mytwitterappclient.R;
+import com.avgtechie.mytwitterappclient.models.Helper;
 import com.avgtechie.mytwitterappclient.restclients.RestClientApp;
 import com.loopj.android.http.JsonHttpResponseHandler;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class TweetComposeActivity extends Activity {
 	protected static final String TAG = "TweetComposeActivity";
@@ -24,15 +29,17 @@ public class TweetComposeActivity extends Activity {
 	Button btnTweet;
 	EditText etTweetCompose;
 	TextView tvUserName;
+	ImageView imgUserProfile;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_tweet_compose);
 		initViews();
-		// TODO Add username here.
-		tvUserName.setText("@Username");
-		
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+
+		ImageLoader.getInstance().displayImage(Helper.getSharedPrefUserProfileImage(prefs), imgUserProfile);
+		tvUserName.setText(Helper.getSharedPrefUserScreenName(prefs));
 
 	}
 
@@ -41,6 +48,7 @@ public class TweetComposeActivity extends Activity {
 		btnTweet = (Button) findViewById(R.id.btn_tweet_compose);
 		etTweetCompose = (EditText) findViewById(R.id.et_tweet_compose);
 		tvUserName = (TextView) findViewById(R.id.tv_tweet_username);
+		imgUserProfile = (ImageView) findViewById(R.id.img_tweet_profile);
 	}
 
 	public void onClickBtnTweet(View v) {
