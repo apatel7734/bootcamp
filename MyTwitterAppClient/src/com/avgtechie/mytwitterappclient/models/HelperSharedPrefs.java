@@ -3,7 +3,7 @@ package com.avgtechie.mytwitterappclient.models;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
-public class Helper {
+public class HelperSharedPrefs {
 
 	private final static String SCREEN_NAME_KEY = "screennamekey";
 	private final static String PROFILE_URL_KEY = "profile_url_key";

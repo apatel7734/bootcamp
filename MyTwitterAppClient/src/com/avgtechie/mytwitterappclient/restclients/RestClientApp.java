@@ -31,7 +31,7 @@ public class RestClientApp extends com.activeandroid.app.Application {
 		ImageLoader.getInstance().init(config);
 	}
 
-	public static TweeterRestClient getRestClient() {
+	public static TweeterRestClient getTweeterRestClient() {
 		return (TweeterRestClient) TweeterRestClient.getInstance(TweeterRestClient.class, RestClientApp.context);
 	}
 }

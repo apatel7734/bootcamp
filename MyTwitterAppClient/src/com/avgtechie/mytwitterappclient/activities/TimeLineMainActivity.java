@@ -19,7 +19,7 @@ import android.widget.Toast;
 import com.avgtechie.mytwitterappclient.R;
 import com.avgtechie.mytwitterappclient.adapters.TweetsAdapter;
 import com.avgtechie.mytwitterappclient.listeners.EndlessScrollListener;
-import com.avgtechie.mytwitterappclient.models.Helper;
+import com.avgtechie.mytwitterappclient.models.HelperSharedPrefs;
 import com.avgtechie.mytwitterappclient.models.Tweet;
 import com.avgtechie.mytwitterappclient.models.UserCredential;
 import com.avgtechie.mytwitterappclient.models.UserSetting;
@@ -50,19 +50,19 @@ public class TimeLineMainActivity extends Activity {
 	}
 
 	public void getUserInformation() {
-		RestClientApp.getRestClient().verifyCredential(new JsonHttpResponseHandler() {
+		RestClientApp.getTweeterRestClient().verifyCredential(new JsonHttpResponseHandler() {
 			@Override
 			public void onSuccess(JSONObject response) {
 				UserCredential userCred = UserCredential.fromJson(response);
 				SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-				Helper.addUserInfoSharedPref(prefs, userCred);
-				getActionBar().setTitle(Helper.getSharedPrefUserScreenName(prefs));
+				HelperSharedPrefs.addUserInfoSharedPref(prefs, userCred);
+				getActionBar().setTitle(HelperSharedPrefs.getSharedPrefUserScreenName(prefs));
 			}
 		});
 	}
 
 	public void getSettings() {
-		RestClientApp.getRestClient().getUserSettings(new JsonHttpResponseHandler() {
+		RestClientApp.getTweeterRestClient().getUserSettings(new JsonHttpResponseHandler() {
 
 			@Override
 			public void onSuccess(JSONObject response) {
@@ -75,7 +75,7 @@ public class TimeLineMainActivity extends Activity {
 	}
 
 	public void loadTweets() {
-		RestClientApp.getRestClient().getHomeTimeline(new JsonHttpResponseHandler() {
+		RestClientApp.getTweeterRestClient().getHomeTimeline(new JsonHttpResponseHandler() {
 			@Override
 			public void onSuccess(JSONArray jsonArray) {
 				tweets = Tweet.fromJson(jsonArray);
@@ -87,7 +87,7 @@ public class TimeLineMainActivity extends Activity {
 	}
 
 	public void loadMoreTweets(int page) {
-		RestClientApp.getRestClient().getHomeTimeline(new JsonHttpResponseHandler() {
+		RestClientApp.getTweeterRestClient().getHomeTimeline(new JsonHttpResponseHandler() {
 			@Override
 			public void onSuccess(JSONArray jsonArray) {
 				List<Tweet> moreTweets = Tweet.fromJson(jsonArray);
