@@ -83,6 +83,12 @@ public class TimeLineMainActivity extends Activity {
 				lvTweets.setAdapter(adapter);
 				EndlessScrollListener.page++;
 			}
+
+			@Override
+			public void onFailure(Throwable t) {
+				Log.d(TAG, t.getCause().toString());
+				Log.d(TAG, t.toString());
+			}
 		}, EndlessScrollListener.page);
 	}
 

@@ -1,5 +1,8 @@
 package com.avgtechie.mytwitterappclient.restclients;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
 import org.scribe.builder.api.Api;
 import org.scribe.builder.api.TwitterApi;
 
@@ -54,10 +57,10 @@ public class TweeterRestClient extends OAuthBaseClient {
 		client.get(url, null, handler);
 	}
 
-	public void updateStatus(AsyncHttpResponseHandler handler) {
+	public void updateStatus(AsyncHttpResponseHandler handler, String tweet) {
 		String apiUrl = getApiUrl("statuses/update.json");
 		RequestParams params = new RequestParams();
-		params.put("status", "testTweet");
+		params.put("status", encodedTweet);
 		client.post(apiUrl, params, handler);
 	}
 

@@ -75,7 +75,7 @@ public class TweetComposeActivity extends Activity {
 
 	public void onClickBtnClear(View v) {
 		etTweetCompose.setText("");
-		tvCharCount.setText(getResources().getInteger(R.integer.max_length)+"");
+		tvCharCount.setText(getResources().getInteger(R.integer.max_length) + "");
 	}
 
 	public void onClickBtnTweet(View v) {
@@ -91,11 +91,24 @@ public class TweetComposeActivity extends Activity {
 			Toast.makeText(this, "Encoded String = " + status, Toast.LENGTH_SHORT).show();
 		}
 
-		// tweetStatus();
+		tweetStatus();
 		finish();
 	}
 
 	public void tweetStatus() {
+		String tweet = etTweetCompose.getText().toString();
+		
+		String encodedTweet = null;
+		try {
+			encodedTweet = URLEncoder.encode(tweet, "utf-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if (tweet.isEmpty()) {
+			Toast.makeText(this, "Nothing to tweet.", Toast.LENGTH_SHORT).show();
+			return;
+		}
 		RestClientApp.getTweeterRestClient().updateStatus(new JsonHttpResponseHandler() {
 			@Override
 			public void onSuccess(JSONObject response) {
@@ -106,7 +119,7 @@ public class TweetComposeActivity extends Activity {
 			public void onFailure(Throwable e) {
 				Log.d(TAG, "exception :->" + e.getMessage());
 			}
-		});
+		},tweet);
 	}
 
 	public void onClickBtnCancel(View v) {
