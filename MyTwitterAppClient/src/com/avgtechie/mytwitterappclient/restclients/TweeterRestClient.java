@@ -60,7 +60,7 @@ public class TweeterRestClient extends OAuthBaseClient {
 	public void updateStatus(AsyncHttpResponseHandler handler, String tweet) {
 		String apiUrl = getApiUrl("statuses/update.json");
 		RequestParams params = new RequestParams();
-		params.put("status", encodedTweet);
+		params.put("status", tweet);
 		client.post(apiUrl, params, handler);
 	}
 

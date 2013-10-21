@@ -8,22 +8,28 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
+        android:layout_margin="5dp"
         android:onClick="onClickBtnCancel"
         android:text="@string/cancel" />
 
     <Button
         android:id="@+id/btn_tweet_compose"
+        style="?android:attr/buttonBarButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
+        android:layout_margin="5dp"
+        android:background="#019ad2"
         android:onClick="onClickBtnTweet"
-        android:text="@string/tweet" />
+        android:text="@string/tweet"
+        android:textColor="#333333" />
 
     <ImageView
         android:id="@+id/img_tweet_profile"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_below="@id/btn_tweet_cancel"
+        android:layout_marginLeft="3dp"
         android:contentDescription="@string/twitter_profile_image"
         android:paddingRight="5dp"
         android:src="@drawable/ic_launcher" />
@@ -53,19 +59,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/img_tweet_profile"
+        android:layout_marginLeft="3dp"
+        android:layout_toLeftOf="@+id/btn_tweet_clear"
+        android:background="@android:color/background_light"
         android:gravity="top"
         android:hint="@string/tweet_message"
         android:lines="4"
         android:maxLength="@integer/max_length" >
     </EditText>
 
-    <Button
+    <ImageButton
         android:id="@+id/btn_tweet_clear"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/et_tweet_compose"
         android:layout_alignParentRight="true"
-        android:onClick="onClickBtnClear"
-        android:text="@string/clear" />
+        android:layout_alignTop="@id/et_tweet_compose"
+        android:layout_below="@id/tv_tweet_charcount"
+        android:background="@drawable/ic_action_remove"
+        android:contentDescription="@string/clear_button"
+        android:onClick="onClickBtnClear" />
 
 </RelativeLayout>

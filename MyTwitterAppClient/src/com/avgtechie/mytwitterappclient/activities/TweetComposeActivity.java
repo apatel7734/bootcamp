@@ -97,14 +97,6 @@ public class TweetComposeActivity extends Activity {
 
 	public void tweetStatus() {
 		String tweet = etTweetCompose.getText().toString();
-		
-		String encodedTweet = null;
-		try {
-			encodedTweet = URLEncoder.encode(tweet, "utf-8");
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		if (tweet.isEmpty()) {
 			Toast.makeText(this, "Nothing to tweet.", Toast.LENGTH_SHORT).show();
 			return;
@@ -119,7 +111,7 @@ public class TweetComposeActivity extends Activity {
 			public void onFailure(Throwable e) {
 				Log.d(TAG, "exception :->" + e.getMessage());
 			}
-		},tweet);
+		}, tweet);
 	}
 
 	public void onClickBtnCancel(View v) {

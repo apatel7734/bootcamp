@@ -21,4 +21,6 @@
 
     <string name="clear">Clear</string>
 
+    <string name="clear_button">clear button</string>
+
 </resources>
