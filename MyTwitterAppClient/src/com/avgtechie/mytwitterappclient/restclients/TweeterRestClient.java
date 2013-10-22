@@ -1,8 +1,5 @@
 package com.avgtechie.mytwitterappclient.restclients;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-
 import org.scribe.builder.api.Api;
 import org.scribe.builder.api.TwitterApi;
 
