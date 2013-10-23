@@ -1,11 +1,9 @@
 package com.avgtechie.mytwitterappclient.activities;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -43,7 +41,7 @@ public class TweetComposeActivity extends Activity {
 
 		ImageLoader.getInstance().displayImage(HelperSharedPrefs.getSharedPrefUserProfileImage(prefs), imgUserProfile);
 
-		tvUserName.setText(HelperSharedPrefs.getSharedPrefUserScreenName(prefs));
+		tvUserName.setText("@" + HelperSharedPrefs.getSharedPrefUserScreenName(prefs));
 
 		etTweetCompose.addTextChangedListener(new TextWatcher() {
 			@Override
@@ -82,20 +80,16 @@ public class TweetComposeActivity extends Activity {
 		String status = etTweetCompose.getText().toString();
 		if (status.equals("")) {
 			Toast.makeText(this, "Enter the text!", Toast.LENGTH_SHORT).show();
-		} else {
-			try {
-				status = URLEncoder.encode(status, "UTF-8");
-			} catch (UnsupportedEncodingException e) {
-				Log.d(TAG, "Error thrown while encoding string in UTF-8" + e.getMessage());
-			}
-			Toast.makeText(this, "Encoded String = " + status, Toast.LENGTH_SHORT).show();
 		}
-
-		tweetStatus();
+		postTweet();
+		Toast.makeText(this, "tweeted successfully.", Toast.LENGTH_SHORT).show();
+		Intent resultIntent = new Intent();
+		resultIntent.putExtra("tweet", status);
+		setResult(RESULT_OK, resultIntent);
 		finish();
 	}
 
-	public void tweetStatus() {
+	public void postTweet() {
 		String tweet = etTweetCompose.getText().toString();
 		if (tweet.isEmpty()) {
 			Toast.makeText(this, "Nothing to tweet.", Toast.LENGTH_SHORT).show();

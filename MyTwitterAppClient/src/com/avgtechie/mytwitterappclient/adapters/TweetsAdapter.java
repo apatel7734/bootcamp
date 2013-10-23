@@ -49,8 +49,6 @@ public class TweetsAdapter extends ArrayAdapter<Tweet> {
 		nameView.setText(Html.fromHtml(formattedName));
 		ImageLoader.getInstance().displayImage(tweet.getUser().getProfileImageUrlHttps(), imageView);
 		bodyView.setText(Html.fromHtml(tweet.getBody()));
-		Log.d(TAG, "Created Date = " + tweet.getTweetCreatedDate());
-		Log.d(TAG, "Converted Date = " + StringtoDate(tweet.getTweetCreatedDate()));
 		dateView.setText(StringtoDate(tweet.getTweetCreatedDate()) + "");
 
 		return tweetView;

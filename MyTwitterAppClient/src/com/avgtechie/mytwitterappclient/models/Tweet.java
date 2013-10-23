@@ -1,6 +1,7 @@
 package com.avgtechie.mytwitterappclient.models;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -8,7 +9,7 @@ import org.json.JSONObject;
 
 public class Tweet extends BaseModel {
 	private static final String TAG = "Tweet";
-	
+
 	private User user;
 
 	public User getUser() {
@@ -30,7 +31,7 @@ public class Tweet extends BaseModel {
 	public boolean isRetweeted() {
 		return getBoolean("retweeted");
 	}
-	
+
 	public String getTweetCreatedDate() {
 		return getString("created_at");
 	}
@@ -47,8 +48,8 @@ public class Tweet extends BaseModel {
 		return tweet;
 	}
 
-	public static ArrayList<Tweet> fromJson(JSONArray jsonArray) {
-		ArrayList<Tweet> tweets = new ArrayList<Tweet>(jsonArray.length());
+	public static List<Tweet> fromJson(JSONArray jsonArray) {
+		List<Tweet> tweets = new LinkedList<Tweet>();
 		for (int i = 0; i < jsonArray.length(); i++) {
 			JSONObject tweetJson = null;
 			try {

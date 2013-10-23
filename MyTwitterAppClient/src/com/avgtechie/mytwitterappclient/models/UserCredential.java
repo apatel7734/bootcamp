@@ -10,18 +10,18 @@ public class UserCredential extends BaseModel {
 	public static UserCredential fromJson(JSONObject jsonObject) {
 		UserCredential userCred = new UserCredential();
 		userCred.jsonObject = jsonObject;
-		// userCred.setScreenName(jsonObject.getString("screen_name"));
-		// userCred.setProfileImageUrl(jsonObject.getString("profile_image_url_https"));
 		return userCred;
 	}
 
 	public String getScreenName() {
 		return this.getString("screen_name");
-		// return screenName;
 	}
 
 	public String getProfileImageUrl() {
 		return this.getString("profile_image_url_https");
-		// return profileImageUrl;
+	}
+
+	public String getUserName() {
+		return this.getString("name");
 	}
 }

@@ -1,8 +1,12 @@
 package com.avgtechie.mytwitterappclient.activities;
 
+import java.util.Date;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
@@ -56,7 +60,7 @@ public class TimeLineMainActivity extends Activity {
 				UserCredential userCred = UserCredential.fromJson(response);
 				SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
 				HelperSharedPrefs.addUserInfoSharedPref(prefs, userCred);
-				getActionBar().setTitle(HelperSharedPrefs.getSharedPrefUserScreenName(prefs));
+				getActionBar().setTitle("@" + HelperSharedPrefs.getSharedPrefUserScreenName(prefs));
 			}
 		});
 	}
@@ -125,16 +129,59 @@ public class TimeLineMainActivity extends Activity {
 
 		case R.id.item_compose:
 			Intent intent = new Intent(this, TweetComposeActivity.class);
-			startActivity(intent);
+			startActivityForResult(intent, 2);
+			// startActivity(intent);
 			break;
 		}
 		return true;
 	}
 
 	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		switch (requestCode) {
+		case 2:
+			String tweetStatus = data.getExtras().getString("tweet");
+			Log.d(TAG, "status = " + tweetStatus);
+			JSONArray array = getTweet(tweetStatus);
+			List<Tweet> newTweet = Tweet.fromJson(array);
+			tweets.add(0, newTweet.get(0));
+			adapter.notifyDataSetChanged();
+			break;
+
+		default:
+			break;
+		}
+	}
+
+	public JSONArray getTweet(String tweetStatus) {
+		JSONArray tweetArr = new JSONArray();
+		JSONObject tweet = new JSONObject();
+		JSONObject user = new JSONObject();
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+		try {
+			user.put("profile_image_url_https", HelperSharedPrefs.getSharedPrefUserProfileImage(prefs));
+			user.put("screen_name", HelperSharedPrefs.getSharedPrefUserScreenName(prefs));
+			user.put("name", HelperSharedPrefs.getSharedPrefUserName(prefs));
+			tweet.put("user", user);
+			tweet.put("created_at", getDate());
+			tweet.put("text", tweetStatus);
+			tweetArr.put(tweet);
+		} catch (JSONException e) {
+		}
+		return tweetArr;
+	}
+
+	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.time_line, menu);
 		return true;
+	}
+
+	public String getDate() {
+		Date date = Calendar.getInstance().getTime();
+		SimpleDateFormat origFormat = new SimpleDateFormat("E MMM dd HH:mm:ss +0000 yyyy");
+		String returnDate = origFormat.format(date);
+		return returnDate;
 	}
 
 }
