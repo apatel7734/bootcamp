@@ -104,15 +104,14 @@ public class TimeLineMainActivity extends Activity {
 				EndlessScrollListener.load = true;
 				EndlessScrollListener.page++;
 			}
-			
+
 			@Override
 			public void onFailure(Throwable t) {
 				Log.d(TAG, "Failed in load more");
 				Log.d(TAG, t.getCause().toString());
 				Log.d(TAG, t.toString());
 			}
-			
-			
+
 		}, page);
 	}
 

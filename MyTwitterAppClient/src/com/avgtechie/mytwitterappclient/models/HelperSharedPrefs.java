@@ -7,6 +7,8 @@ public class HelperSharedPrefs {
 
 	private final static String SCREEN_NAME_KEY = "screennamekey";
 	private final static String PROFILE_URL_KEY = "profile_url_key";
+	
+	
 
 	public static void addUserInfoSharedPref(SharedPreferences pref, UserCredential userCred) {
 		
@@ -15,6 +17,8 @@ public class HelperSharedPrefs {
 		edit.putString(PROFILE_URL_KEY, userCred.getProfileImageUrl());
 		edit.commit();
 	}
+	
+	
 
 	public static String getSharedPrefUserScreenName(SharedPreferences pref) {
 		return "@" + pref.getString(SCREEN_NAME_KEY, "@user");
