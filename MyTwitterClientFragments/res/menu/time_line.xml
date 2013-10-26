@@ -8,8 +8,15 @@
         android:title="@string/refresh"/>
     <item
         android:id="@+id/item_compose"
-        android:icon="@drawable/tweet_compose_white"
+        android:icon="@drawable/ic_action_compose"
         android:orderInCategory="100"
         android:showAsAction="ifRoom"
         android:title="@string/compose"/>
+    <item
+        android:id="@+id/item_profile"
+        android:icon="@drawable/ic_action_user"
+        android:orderInCategory="100"
+        android:showAsAction="ifRoom"
+        android:title="@string/profile"/>
+
 </menu>

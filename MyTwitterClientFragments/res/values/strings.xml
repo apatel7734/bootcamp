@@ -11,6 +11,7 @@
     <string name="title_activity_tweet_compose">Tweet Compose</string>
     <string name="refresh">Refresh</string>
     <string name="compose">Tweet</string>
+    <string name="profile">Profile</string>
     <string name="twitter_profile_image">Tweeter Profile Image</string>
     <string name="tweet_message">What\'s happening?</string>
     <string name="cancel">Cancel</string>
@@ -20,7 +21,7 @@
     <item name="max_length" type="integer">140</item>
 
     <string name="clear">Clear</string>
-
     <string name="clear_button">clear button</string>
+    <string name="title_activity_tweet_profile">TweetProfileActivity</string>
 
 </resources>

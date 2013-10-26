@@ -24,4 +24,16 @@ public class UserCredential extends BaseModel {
 	public String getUserName() {
 		return this.getString("name");
 	}
+
+	public String getFollowing() {
+		return this.getString("friends_count");
+	}
+
+	public String getFollower() {
+		return this.getString("followers_count");
+	}
+
+	public String getTagLine() {
+		return this.getString("description");
+	}
 }

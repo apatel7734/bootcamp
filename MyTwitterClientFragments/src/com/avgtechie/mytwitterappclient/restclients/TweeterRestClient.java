@@ -66,8 +66,13 @@ public class TweeterRestClient extends OAuthBaseClient {
 		client.get(apiurl, handler);
 	}
 
-	public void verifyCredential(AsyncHttpResponseHandler handler) {
+	public void getUserInfo(AsyncHttpResponseHandler handler) {
 		String apiurl = getApiUrl("account/verify_credentials.json");
+		client.get(apiurl, handler);
+	}
+
+	public void getUserTimeLine(AsyncHttpResponseHandler handler) {
+		String apiurl = getApiUrl("statuses/user_timeline.json");
 		client.get(apiurl, handler);
 	}
 
@@ -75,5 +80,4 @@ public class TweeterRestClient extends OAuthBaseClient {
 		String apiurl = getApiUrl("statuses/mentions_timeline.json?page=" + page);
 		client.get(apiurl, handler);
 	}
-
 }
