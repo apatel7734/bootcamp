@@ -50,7 +50,7 @@ public class TweetsAdapter extends ArrayAdapter<Tweet> {
 		ImageLoader.getInstance().displayImage(tweet.getUser().getProfileImageUrlHttps(), imageView);
 		bodyView.setText(Html.fromHtml(tweet.getBody()));
 		dateView.setText(StringtoDate(tweet.getTweetCreatedDate()) + "");
-
+		tweetView.setTag(tweet.getUser().getScreenName());
 		return tweetView;
 	}
 

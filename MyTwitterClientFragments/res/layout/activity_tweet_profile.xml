@@ -21,25 +21,24 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@id/imgTweetProfile"
-        android:layout_toRightOf="@id/imgTweetProfile"
-        android:text="Ashish" />
+        android:layout_toRightOf="@id/imgTweetProfile" />
 
     <TextView
         android:id="@+id/tvTagLine"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/tvUserName"
+        android:layout_margin="5dp"
         android:layout_toRightOf="@id/imgTweetProfile"
-        android:text="tagline here" />
+        android:textSize="13sp" />
 
     <TextView
         android:id="@+id/tvFollower"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/imgTweetProfile"
-        android:layout_margin="5dp"
-        android:text="5 Follower"
-        android:textSize="10sp" />
+        android:layout_margin="30dp"
+        android:textSize="13sp" />
 
     <TextView
         android:id="@+id/tvFollowing"
@@ -47,16 +46,14 @@
         android:layout_height="wrap_content"
         android:layout_alignTop="@id/tvFollower"
         android:layout_toRightOf="@id/tvFollower"
-        android:text="5 Following"
-        android:textSize="10sp" />
+        android:textSize="13sp" />
 
-    <fragment
-        android:id="@+id/frag_user"
-        android:name="com.avgtechie.mytwitterappclient.fragments.UserTimeLineFragment"
+    <FrameLayout
+        android:id="@+id/frag_user_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/tvFollowing"
-        tools:layout="@layout/fragment_tweets" />
+        android:layout_below="@+id/tvFollowing" >
+    </FrameLayout>
 
 </RelativeLayout>

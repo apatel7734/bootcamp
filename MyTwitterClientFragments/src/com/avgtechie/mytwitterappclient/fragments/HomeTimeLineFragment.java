@@ -4,9 +4,14 @@ import java.util.List;
 
 import org.json.JSONArray;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 
+import com.avgtechie.mytwitterappclient.activities.TweetProfileActivity;
 import com.avgtechie.mytwitterappclient.listeners.EndlessScrollListener;
 import com.avgtechie.mytwitterappclient.models.Tweet;
 import com.avgtechie.mytwitterappclient.restclients.RestClientApp;
@@ -50,7 +55,14 @@ public class HomeTimeLineFragment extends TweetsBaseFragment {
 			@Override
 			public void loadMore(int page) {
 				loadMoreTweets(page);
-
+			}
+		});
+		getListView().setOnItemClickListener(new OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				Intent intent = new Intent(getActivity(), TweetProfileActivity.class);
+				intent.putExtra("screenName", view.getTag().toString());
+				startActivity(intent);
 			}
 		});
 	}

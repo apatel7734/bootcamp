@@ -51,6 +51,7 @@ public class TimeLineMainActivity extends FragmentActivity implements TabListene
 
 	@Override
 	public void onTabReselected(Tab tab, android.app.FragmentTransaction ft) {
+
 	}
 
 	@Override
@@ -90,6 +91,8 @@ public class TimeLineMainActivity extends FragmentActivity implements TabListene
 			break;
 		case R.id.item_profile:
 			intent = new Intent(this, TweetProfileActivity.class);
+			intent.putExtra("screenName",
+					HelperSharedPrefs.getSharedPrefUserScreenName(PreferenceManager.getDefaultSharedPreferences(getBaseContext())));
 			startActivity(intent);
 			break;
 		}

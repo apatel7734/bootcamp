@@ -11,6 +11,10 @@ public class User extends BaseModel {
 		return getLong("id");
 	}
 
+	public String getTagLine() {
+		return this.getString("description");
+	}
+
 	public String getScreenName() {
 		return getString("screen_name");
 	}
